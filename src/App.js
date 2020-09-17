@@ -5,7 +5,7 @@ import "./App.scss";
 function App() {
   return (
     <div className="App">
-      <button className="btn">My button</button>
+      <h1>Welcome to Liquality App!!</h1>
     </div>
   );
 }
