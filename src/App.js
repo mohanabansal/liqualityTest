@@ -6,7 +6,6 @@ import "./App.scss";
 function App() {
   return (
     <div className="App">
-      <h1>Welcome to Liquality App!!</h1>
       <MarketInfo />
     </div>
   );
