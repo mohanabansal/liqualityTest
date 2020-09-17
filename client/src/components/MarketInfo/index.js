@@ -5,6 +5,7 @@ import { getMarketInfoFromAPI } from "../../redux/MarketInfo";
 import MarketInfoUI from "./MarketInfoUI";
 
 let socket;
+
 class MarketInfo extends Component {
   constructor() {
     super();
@@ -14,10 +15,7 @@ class MarketInfo extends Component {
   }
   componentDidMount() {
     socket = io.connect("http://localhost:5000")
-    this.props.getMarketInfo(socket, this.state.timer);
-    // this.interval = setInterval(() => {
-    //   this.props.getMarketInfo();
-    // }, this.state.timer);
+    this.props.getMarketInfo(socket, this.state.timer, true);
   }
 
   componentWillUnmount() {
@@ -30,10 +28,6 @@ class MarketInfo extends Component {
     await this.setState({
       timer: newTimer,
     });
-    // clearInterval(this.interval);
-    // this.interval = setInterval(() => {
-    //   this.props.getMarketInfo();
-    // }, this.state.timer);
     this.props.getMarketInfo(socket, this.state.timer);
   };
 
@@ -67,8 +61,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getMarketInfo: (socket, timer) => {
-      dispatch(getMarketInfoFromAPI(socket, timer));
+    getMarketInfo: (socket, timer, initial) => {
+      dispatch(getMarketInfoFromAPI(socket, timer, initial));
     },
   };
 };

@@ -9,9 +9,9 @@ const getMarketInfo = (data) => ({
 });
 
 
-export const getMarketInfoFromAPI = (socket, timer) => {
+export const getMarketInfoFromAPI = (socket, timer, initial) => {
   return (dispatch) => {
-    socket.emit("fetchData", timer);
+    socket.emit("fetchData", timer, initial);
     socket.on("newInfo", (data) => {
       dispatch(getMarketInfo(data))
     })

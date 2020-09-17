@@ -12,7 +12,11 @@ module.exports = io => {
   io.on('connection', socket => {
     console.log(`**********!!!!!A socket connection to the server has been made: ${socket.id}`)
 
-    socket.on("fetchData", (timer) => {
+    socket.on("fetchData", async(timer, initial) => {
+      if(initial) {
+        const {data} = await axios.get("https://liquality.io/swap/agent/api/swap/marketinfo");
+        socket.emit("newInfo", data)
+      }
       clearInterval(interval);
       interval = setInterval(async() => {
         const {data} = await axios.get("https://liquality.io/swap/agent/api/swap/marketinfo");
