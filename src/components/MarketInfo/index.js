@@ -17,6 +17,11 @@ class MarketInfo extends Component {
     }, this.state.timer);
   }
 
+  componentWillUnmount() {
+    console.log("unmount!!!");
+    clearInterval(this.interval);
+  }
+
   handleChange = async (e) => {
     let newTimer = parseInt(e.target.value) * 1000;
     await this.setState({
@@ -26,6 +31,10 @@ class MarketInfo extends Component {
     this.interval = setInterval(() => {
       this.props.getMarketInfo();
     }, this.state.timer);
+  };
+
+  stopFetching = () => {
+    clearInterval(this.interval);
   };
 
   render() {
@@ -41,6 +50,7 @@ class MarketInfo extends Component {
           <option value="15">15</option>
         </select>
         <MarketInfoUI info={this.props.info} />
+        <button onClick={this.stopFetching}>Stop Fetching</button>
       </div>
     );
   }
