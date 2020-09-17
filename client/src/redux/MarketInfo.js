@@ -8,31 +8,11 @@ const getMarketInfo = (data) => ({
   data,
 });
 
-//thunk
-// export const getMarketInfoFromAPI = () => {
-//   console.log("Reducer called");
-//   return async (dispatch, getState, { axios }) => {
-//     try {
-//       const { data } = await axios.get(
-//         "https://liquality.io/swap/agent/api/swap/marketinfo"
-//       );
-//       dispatch(getMarketInfo(data));
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// };
 
 export const getMarketInfoFromAPI = (socket, timer) => {
   return (dispatch) => {
-    // dispatch(clearAllItems())
-    // socket.emit("fetchData", (res) => {
-    //   console.log(res);
-    //   dispatch(getMarketInfo(res));
-    // });
     socket.emit("fetchData", timer);
     socket.on("newInfo", (data) => {
-      console.log("data from Socket-------", data)
       dispatch(getMarketInfo(data))
     })
   };

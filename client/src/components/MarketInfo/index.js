@@ -21,7 +21,6 @@ class MarketInfo extends Component {
   }
 
   componentWillUnmount() {
-    console.log("unmount!!!");
     clearInterval(this.interval);
   }
 
