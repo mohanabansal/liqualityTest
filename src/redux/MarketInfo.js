@@ -8,6 +8,7 @@ const getMarketInfo = (data) => ({
 
 //thunk
 export const getMarketInfoFromAPI = () => {
+  console.log("called");
   return async (dispatch, getState, { axios }) => {
     try {
       const { data } = await axios.get(
