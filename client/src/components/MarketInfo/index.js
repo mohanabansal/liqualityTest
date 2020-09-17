@@ -26,14 +26,16 @@ class MarketInfo extends Component {
   }
 
   handleChange = async (e) => {
+    socket.emit("clearInterval");
     let newTimer = parseInt(e.target.value) * 1000;
     await this.setState({
       timer: newTimer,
     });
-    clearInterval(this.interval);
-    this.interval = setInterval(() => {
-      this.props.getMarketInfo();
-    }, this.state.timer);
+    // clearInterval(this.interval);
+    // this.interval = setInterval(() => {
+    //   this.props.getMarketInfo();
+    // }, this.state.timer);
+    this.props.getMarketInfo(socket, this.state.timer);
   };
 
   stopFetching = () => {

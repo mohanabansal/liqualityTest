@@ -7,6 +7,7 @@ async function getData() {
   return data;
 }
 
+let interval;
 module.exports = io => {
   console.log('IN SOCKET---------->')
   io.on('connection', socket => {
@@ -18,15 +19,19 @@ module.exports = io => {
 
     socket.on("fetchData", (timer) => {
       console.log("-------FETCHING DATA--------", timer);
-      setInterval(async() => {
-        const {data} = await axios.get(
-                  "https://liquality.io/swap/agent/api/swap/marketinfo"
-                );
-        console.log("Data", data)
+      clearInterval(interval);
+      interval = setInterval(async() => {
+        const {data} = await axios.get("https://liquality.io/swap/agent/api/swap/marketinfo");
+        // console.log("Data", data)
         socket.emit("newInfo", data)
       }, timer)
 
     });
+
+    // socket.on("clearInteval", () => {
+    //   clearInterval(interval);
+    //   console.log("Stopped interval");
+    // })
 
     socket.on('disconnect', () => {
       console.log(`Connection ${socket.id} has left the building`)
