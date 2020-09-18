@@ -1,6 +1,5 @@
 import React from "react";
 import MarketInfo from "./components/MarketInfo";
-import "./App.scss";
 
 function App() {
   return (
