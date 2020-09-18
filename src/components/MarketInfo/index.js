@@ -66,7 +66,7 @@ class MarketInfo extends Component {
           {this.state.fetching === true ? (
             <p className="status-updating">Updating...</p>
           ) : (
-            <p className="status-updated">Updated...</p>
+            <p className="status-updated">Updated</p>
           )}
           <div className="timer-header">
             <div className="refresh">
@@ -79,11 +79,6 @@ class MarketInfo extends Component {
               </select>
             </div>
           </div>
-          {/* <label>Stop Fetching</label>
-          <label>
-            <input type="checkbox"></input>
-            <span class="slider round"></span>
-          </label> */}
         </div>
         <MarketInfoUI info={this.props.info} />
       </div>
