@@ -1,23 +1,13 @@
 //action
 const GET_MARKET_INFO = "GET_MARKET_INFO";
-const FILTER_FROM = "FILTER_FROM";
 
 const getMarketInfo = (data) => ({
   type: GET_MARKET_INFO,
   data,
 });
 
-export const filterFrom = (filterValue) => {
-  console.log("Filter called", filterValue);
-  return {
-    type: FILTER_FROM,
-    filterValue,
-  };
-};
-
 //thunk
 export const getMarketInfoFromAPI = () => {
-  console.log("called");
   return async (dispatch, getState, { axios }) => {
     try {
       const { data } = await axios.get(
@@ -33,8 +23,6 @@ export const getMarketInfoFromAPI = () => {
 //initialState
 const initialState = {
   info: [],
-  from: [],
-  to: [],
 };
 
 //reducer
@@ -57,19 +45,6 @@ export default function marketInfoReducer(state = initialState, action) {
         info: action.data,
         from: [...fromSet],
         to: [...toSet],
-      };
-    case FILTER_FROM:
-      console.log("in case");
-      const info = [...state.info];
-      const result = info.filter((item) => {
-        if (item.from === action.filterValue) {
-          return item;
-        }
-      });
-      console.log("filteredREsult", result);
-      return {
-        ...state,
-        info: result,
       };
     default:
       return state;
