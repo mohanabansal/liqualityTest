@@ -43,7 +43,7 @@ class MarketInfo extends Component {
       this.setState({
         fetching: true,
       });
-      setTimeout(() => this.handleTimeOut(), 1000);
+      setTimeout(() => this.handleTimeOut(), 2000);
       this.props.getMarketInfo();
     }, this.state.timer);
   };
@@ -68,9 +68,9 @@ class MarketInfo extends Component {
             </select>
           </div>
           {this.state.fetching === true ? (
-            <p>Updating...</p>
+            <p className="status-updating">Updating...</p>
           ) : (
-            <p>Updated...</p>
+            <p className="status-updated">Updated...</p>
           )}
           <button onClick={this.stopFetching}>Stop Fetching</button>
           {/* <label>Stop Fetching</label>
