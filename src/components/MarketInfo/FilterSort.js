@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { filterFrom } from "../../redux/MarketInfo";
+import { filterFrom, setFilterFrom } from "../../redux/MarketInfo";
 
 function FilterSort(props) {
   // render() {
 
   const handleFromChange = (e) => {
+    props.setFilterFrom(e.target.value);
     props.filterFrom(e.target.value);
   };
 
@@ -46,7 +47,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  filterFrom: (value) => filterFrom(value),
+  filterFrom: (value) => dispatch(filterFrom(value)),
+  setFilterFrom: (value) => dispatch(setFilterFrom(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterSort);

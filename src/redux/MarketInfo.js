@@ -1,19 +1,28 @@
 //action
 const GET_MARKET_INFO = "GET_MARKET_INFO";
-const FILTER_FROM = "FILTER_FROM";
+const SET_FILTER_FROM = "SET_FILTER_FROM";
+const FILTER = "FILTER";
+const FILTER_TO = "FILTER_TO";
 
 const getMarketInfo = (data) => ({
   type: GET_MARKET_INFO,
   data,
 });
 
-export const filterFrom = (filterValue) => {
-  console.log("Filter called", filterValue);
-  return {
-    type: FILTER_FROM,
-    filterValue,
-  };
-};
+export const setFilterFrom = (val) => ({
+  type: SET_FILTER_FROM,
+  val,
+});
+
+export const filterFrom = (data) => ({
+  type: FILTER,
+  data,
+});
+
+export const filterTo = (data) => ({
+  type: FILTER_TO,
+  data,
+});
 
 //thunk
 export const getMarketInfoFromAPI = () => {
@@ -35,6 +44,7 @@ const initialState = {
   info: [],
   from: [],
   to: [],
+  filterFrom: "",
 };
 
 //reducer
@@ -52,24 +62,32 @@ export default function marketInfoReducer(state = initialState, action) {
           toSet.add(item.to);
         }
       }
+      let filteredResult = [];
+      if (state.filterFrom) {
+        let oldInfo = [...state.info];
+        let filteredResult = oldInfo.filter(
+          (item) => item.from !== state.filterFrom
+        );
+      }
       return {
         ...state,
         info: action.data,
         from: [...fromSet],
         to: [...toSet],
       };
-    case FILTER_FROM:
+    case SET_FILTER_FROM:
+      return {
+        ...state,
+        filterFrom: action.val,
+      };
+    case FILTER:
       console.log("in case");
       const info = [...state.info];
-      const result = info.filter((item) => {
-        if (item.from === action.filterValue) {
-          return item;
-        }
-      });
+      let result = info.filter((item) => item.from !== action.data);
       console.log("filteredREsult", result);
       return {
         ...state,
-        info: result,
+        info: [...result],
       };
     default:
       return state;
