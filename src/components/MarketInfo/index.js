@@ -8,6 +8,7 @@ class MarketInfo extends Component {
     super();
     this.state = {
       timer: 5000,
+      fetching: false,
     };
   }
   componentDidMount() {
@@ -22,13 +23,26 @@ class MarketInfo extends Component {
     clearInterval(this.interval);
   }
 
+  handleTimeOut = () => {
+    this.setState({
+      fetching: false,
+    });
+  };
+
   handleChange = async (e) => {
     let newTimer = parseInt(e.target.value) * 1000;
+
     await this.setState({
       timer: newTimer,
     });
+
     clearInterval(this.interval);
+
     this.interval = setInterval(() => {
+      this.setState({
+        fetching: true,
+      });
+      setTimeout(() => this.handleTimeOut(), 1000);
       this.props.getMarketInfo();
     }, this.state.timer);
   };
@@ -40,11 +54,12 @@ class MarketInfo extends Component {
   render() {
     return (
       <div>
+        {this.state.fetching === true ? <p>Updating...</p> : <p>Updated...</p>}
         <label>Refresh data every:</label>
         <select defaultValue="default" onChange={this.handleChange}>
-          <option value="default" disabled>
+          {/* <option value="default" disabled>
             Select to set time
-          </option>
+          </option> */}
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="15">15</option>
