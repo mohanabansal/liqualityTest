@@ -3,7 +3,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## To run the project
 You can visit the project on [https://liqualitytest.netlify.app](https://liqualitytest.netlify.app)
 
-To run locally - clone the repository in local and run `yarn start`.
+To run locally:
+Clone the repository in local  
+Run `npm i` to install the dependencies
+Run `npm start`.
 
 ## Project Details
 This is a MVP Design based on the requirements of test
