@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getMarketInfoFromAPI } from "../../redux/MarketInfo";
 import MarketInfoUI from "./MarketInfoUI";
-import FilterSort from "./FilterSort";
 import "./index.scss";
 
 class MarketInfo extends Component {
@@ -65,7 +64,6 @@ class MarketInfo extends Component {
     return (
       <div className="info">
         <div className="timer-section">
-          <FilterSort />
           {this.state.fetching === true ? (
             <p className="status-updating">Updating...</p>
           ) : (

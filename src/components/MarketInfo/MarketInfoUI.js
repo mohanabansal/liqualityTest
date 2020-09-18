@@ -3,7 +3,6 @@ import "./index.scss";
 
 function MarketInfoUI(props) {
   const { info } = props;
-  console.log("UI", info);
   return (
     <div>
       <div className="info-table">
