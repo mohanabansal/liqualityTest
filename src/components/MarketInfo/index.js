@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getMarketInfoFromAPI } from "../../redux/MarketInfo";
 import MarketInfoUI from "./MarketInfoUI";
+import FilterSort from "./FilterSort";
 import "./index.scss";
 
 class MarketInfo extends Component {
@@ -64,6 +65,7 @@ class MarketInfo extends Component {
     return (
       <div className="info">
         <div className="timer-section">
+          <FilterSort />
           {this.state.fetching === true ? (
             <p className="status-updating">Updating...</p>
           ) : (
@@ -73,9 +75,6 @@ class MarketInfo extends Component {
             <div className="refresh">
               <label>Refresh</label>
               <select defaultValue="default" onChange={this.handleChange}>
-                {/* <option value="default" disabled>
-            Select to set time
-          </option> */}
                 <option value="5">5 sec</option>
                 <option value="10">10 sec</option>
                 <option value="15">15 sec</option>
@@ -83,7 +82,6 @@ class MarketInfo extends Component {
               </select>
             </div>
           </div>
-          {/* <button onClick={this.stopFetching}>Stop Fetching</button> */}
           {/* <label>Stop Fetching</label>
           <label>
             <input type="checkbox"></input>
