@@ -2,17 +2,23 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getMarketInfoFromAPI } from "../../redux/MarketInfo";
 import MarketInfoUI from "./MarketInfoUI";
+import "./index.scss";
 
 class MarketInfo extends Component {
   constructor() {
     super();
     this.state = {
       timer: 5000,
+      fetching: false,
     };
   }
   componentDidMount() {
     this.props.getMarketInfo();
     this.interval = setInterval(() => {
+      this.setState({
+        fetching: true,
+      });
+      setTimeout(() => this.handleTimeOut(), 2000);
       this.props.getMarketInfo();
     }, this.state.timer);
   }
@@ -22,15 +28,32 @@ class MarketInfo extends Component {
     clearInterval(this.interval);
   }
 
-  handleChange = async (e) => {
-    let newTimer = parseInt(e.target.value) * 1000;
-    await this.setState({
-      timer: newTimer,
+  handleTimeOut = () => {
+    this.setState({
+      fetching: false,
     });
-    clearInterval(this.interval);
-    this.interval = setInterval(() => {
-      this.props.getMarketInfo();
-    }, this.state.timer);
+  };
+
+  handleChange = async (e) => {
+    if (e.target.value === "stop") {
+      clearInterval(this.interval);
+    } else {
+      let newTimer = parseInt(e.target.value) * 1000;
+
+      await this.setState({
+        timer: newTimer,
+      });
+
+      clearInterval(this.interval);
+
+      this.interval = setInterval(() => {
+        this.setState({
+          fetching: true,
+        });
+        setTimeout(() => this.handleTimeOut(), 2000);
+        this.props.getMarketInfo();
+      }, this.state.timer);
+    }
   };
 
   stopFetching = () => {
@@ -39,18 +62,35 @@ class MarketInfo extends Component {
 
   render() {
     return (
-      <div>
-        <label>Refresh data every:</label>
-        <select defaultValue="default" onChange={this.handleChange}>
-          <option value="default" disabled>
+      <div className="info">
+        <div className="timer-section">
+          {this.state.fetching === true ? (
+            <p className="status-updating">Updating...</p>
+          ) : (
+            <p className="status-updated">Updated...</p>
+          )}
+          <div className="timer-header">
+            <div className="refresh">
+              <label>Refresh</label>
+              <select defaultValue="default" onChange={this.handleChange}>
+                {/* <option value="default" disabled>
             Select to set time
-          </option>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-        </select>
+          </option> */}
+                <option value="5">5 sec</option>
+                <option value="10">10 sec</option>
+                <option value="15">15 sec</option>
+                <option value="stop">Stop</option>
+              </select>
+            </div>
+          </div>
+          {/* <button onClick={this.stopFetching}>Stop Fetching</button> */}
+          {/* <label>Stop Fetching</label>
+          <label>
+            <input type="checkbox"></input>
+            <span class="slider round"></span>
+          </label> */}
+        </div>
         <MarketInfoUI info={this.props.info} />
-        <button onClick={this.stopFetching}>Stop Fetching</button>
       </div>
     );
   }
