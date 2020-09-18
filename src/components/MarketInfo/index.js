@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getMarketInfoFromAPI } from "../../redux/MarketInfo";
 import MarketInfoUI from "./MarketInfoUI";
+import "./index.scss";
 
 class MarketInfo extends Component {
   constructor() {
@@ -53,19 +54,32 @@ class MarketInfo extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.fetching === true ? <p>Updating...</p> : <p>Updated...</p>}
-        <label>Refresh data every:</label>
-        <select defaultValue="default" onChange={this.handleChange}>
-          {/* <option value="default" disabled>
+      <div className="info">
+        <div className="timer-section">
+          <div className="timer-header">
+            <label>Refresh data every:</label>
+            <select defaultValue="default" onChange={this.handleChange}>
+              {/* <option value="default" disabled>
             Select to set time
           </option> */}
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-        </select>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+          {this.state.fetching === true ? (
+            <p>Updating...</p>
+          ) : (
+            <p>Updated...</p>
+          )}
+          <button onClick={this.stopFetching}>Stop Fetching</button>
+          {/* <label>Stop Fetching</label>
+          <label>
+            <input type="checkbox"></input>
+            <span class="slider round"></span>
+          </label> */}
+        </div>
         <MarketInfoUI info={this.props.info} />
-        <button onClick={this.stopFetching}>Stop Fetching</button>
       </div>
     );
   }
