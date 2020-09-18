@@ -5,7 +5,9 @@ You can visit the project on [https://liqualitytest.netlify.app](https://liquali
 
 To run locally:
 Clone the repository in local  
+
 Run `npm i` to install the dependencies
+
 Run `npm start`.
 
 ## Project Details
