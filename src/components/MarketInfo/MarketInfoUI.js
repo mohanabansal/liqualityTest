@@ -3,7 +3,7 @@ import "./index.scss";
 
 function MarketInfoUI(props) {
   const { info } = props;
-
+  console.log("UI", info);
   return (
     <div>
       <div className="info-table">
@@ -25,7 +25,7 @@ function MarketInfoUI(props) {
                 <td>{item.to}</td>
                 <td>{item.rate}</td>
                 <td>{item.orderExpiresIn}</td>
-                <td>{item.status}</td>
+                <td className={item.status.toLowerCase()}>{item.status}</td>
                 <td>{item.max}</td>
                 <td>{item.min}</td>
                 <td>{item.minConf}</td>
