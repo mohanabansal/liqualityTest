@@ -59,7 +59,7 @@ class MarketInfoUI extends Component {
             </table>
           </div>
         ) : (
-          <h2>No data for selected value</h2>
+          <h2 className="no-data">No data for selected value</h2>
         )}
       </div>
     );

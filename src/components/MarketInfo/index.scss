@@ -6,6 +6,13 @@ td {
 
 table {
   margin-bottom: 50px;
+  width: 1200px;
+}
+
+.no-data {
+  width: 1200px;
+  font-size: 40px;
+  color: #e37f64;
 }
 
 .info-table {
@@ -45,8 +52,8 @@ th {
 
 .timer-header {
   margin: auto 0;
-  background-color: #DF7153;
-  background: linear-gradient(90deg, #8A3219 0%, #AC3E20 35%, #E37F64 100%);
+  background-color: #df7153;
+  background: linear-gradient(90deg, #8a3219 0%, #ac3e20 35%, #e37f64 100%);
   font-weight: bold;
   padding: 4px;
   font-style: italic;
@@ -67,8 +74,8 @@ select {
   min-width: 90px;
   font-weight: bold;
   font-style: italic;
-  background-color: #DF7153;
-  background: linear-gradient(90deg, #8A3219 0%, #AC3E20 35%, #E37F64 100%);
+  background-color: #df7153;
+  background: linear-gradient(90deg, #8a3219 0%, #ac3e20 35%, #e37f64 100%);
   border-radius: 10px;
   padding: 4px 10px;
 }
