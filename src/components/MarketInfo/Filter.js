@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { fromFilter, toFilter } from "../../redux/MarketInfo";
 
 function Filter(props) {
-  const { info } = props;
+  const { fromOptions, toOptions } = props;
+  console.log("FILTER STATE DATA", props.fromOptions);
 
   const handleFromChange = (e) => {
     props.fromFilter(e.target.value);
@@ -15,35 +16,41 @@ function Filter(props) {
 
   return (
     <div>
-      {info && info.length && (
+      <div>
         <div>
           <label>From</label>
           <select onChange={handleFromChange}>
             <option selected value="all">
               All
             </option>
-            {info.map((item) => (
-              <option value={item.from}>{item.from}</option>
-            ))}
+            {fromOptions &&
+              fromOptions.map((option) => (
+                <option value={option}>{option}</option>
+              ))}
           </select>
+        </div>
+        <div>
           <label>To</label>
           <select onChange={handleToChange}>
             <option selected value="all">
               All
             </option>
-            {info.map((item) => (
-              <option value={item.to}>{item.to}</option>
+            {toOptions.map((option) => (
+              <option value={option}>{option}</option>
             ))}
           </select>
         </div>
-      )}
+      </div>
+      {/* {info && info.length && (
+      )} */}
     </div>
   );
 }
 
-// const mapStateToProps = (state) => ({
-//   info: state.marketInfo.info,
-// });
+const mapStateToProps = (state) => ({
+  fromOptions: state.marketInfo.fromOptions,
+  toOptions: state.marketInfo.toOptions,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   fromFilter: (fromSelectedValue) => {
@@ -54,4 +61,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(Filter);
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

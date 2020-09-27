@@ -39,6 +39,8 @@ export const getMarketInfoFromAPI = () => {
 //initialState
 const initialState = {
   info: [],
+  fromOptions: [],
+  toOptions: [],
   fromFilter: "all",
   toFilter: "all",
   filteredInfo: [],
@@ -54,16 +56,38 @@ export default function marketInfoReducer(state = initialState, action) {
       } else {
         filteredData = action.data;
       }
+
+      // fetching distinct values from the "from" table cloumn
+      let fromOptionsData = new Set();
+      action.data.map((item) => {
+        fromOptionsData.add(item.from);
+      });
+      let toOptionsData = new Set();
+      action.data.map((item) => {
+        toOptionsData.add(item.to);
+      });
       return {
         ...state,
         info: action.data,
+        fromOptions: [...fromOptionsData],
+        toOptions: [...toOptionsData],
         filteredInfo: filteredData,
       };
     case FROM_FILTER:
       let oldInfo = state.info;
       let newInfo = [];
       if (action.selectedValue === "all") {
-        newInfo = state.info;
+        if (state.toFilter !== "all") {
+          newInfo = oldInfo.filter((item) => item.to === state.toFilter);
+        } else {
+          console.log("to is ALL");
+          newInfo = state.info;
+        }
+      } else if (state.toFilter !== "all") {
+        newInfo = oldInfo.filter(
+          (item) =>
+            item.from === action.selectedValue && item.to === state.toFilter
+        );
       } else {
         newInfo = oldInfo.filter((item) => item.from === action.selectedValue);
       }
@@ -76,7 +100,19 @@ export default function marketInfoReducer(state = initialState, action) {
       let stateInfo = state.info;
       let newStateInfo = [];
       if (action.selectedValue === "all") {
-        newStateInfo = state.info;
+        if (state.fromFilter !== "all") {
+          newStateInfo = stateInfo.filter(
+            (item) => item.from === state.fromFilter
+          );
+        } else {
+          console.log("to is ALL");
+          newStateInfo = state.info;
+        }
+      } else if (state.fromFilter !== "all") {
+        newStateInfo = stateInfo.filter(
+          (item) =>
+            item.to === action.selectedValue && item.from === state.fromFilter
+        );
       } else {
         newStateInfo = stateInfo.filter(
           (item) => item.to === action.selectedValue
