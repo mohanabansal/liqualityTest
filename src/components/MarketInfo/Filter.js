@@ -1,12 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fromFilter } from "../../redux/MarketInfo";
+import { fromFilter, toFilter } from "../../redux/MarketInfo";
 
 function Filter(props) {
   const { info } = props;
 
   const handleFromChange = (e) => {
     props.fromFilter(e.target.value);
+  };
+
+  const handleToChange = (e) => {
+    props.toFilter(e.target.value);
   };
 
   return (
@@ -23,8 +27,10 @@ function Filter(props) {
             ))}
           </select>
           <label>To</label>
-          <select>
-            <option selected>All</option>
+          <select onChange={handleToChange}>
+            <option selected value="all">
+              All
+            </option>
             {info.map((item) => (
               <option value={item.to}>{item.to}</option>
             ))}
@@ -42,6 +48,9 @@ function Filter(props) {
 const mapDispatchToProps = (dispatch) => ({
   fromFilter: (fromSelectedValue) => {
     dispatch(fromFilter(fromSelectedValue));
+  },
+  toFilter: (fromSelectedValue) => {
+    dispatch(toFilter(fromSelectedValue));
   },
 });
 
