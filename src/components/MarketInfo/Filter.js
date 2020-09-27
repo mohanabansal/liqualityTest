@@ -4,7 +4,6 @@ import { fromFilter, toFilter } from "../../redux/MarketInfo";
 
 function Filter(props) {
   const { fromOptions, toOptions } = props;
-  console.log("FILTER STATE DATA", props.fromOptions);
 
   const handleFromChange = (e) => {
     props.fromFilter(e.target.value);

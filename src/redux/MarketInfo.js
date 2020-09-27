@@ -2,6 +2,7 @@
 const GET_MARKET_INFO = "GET_MARKET_INFO";
 const FROM_FILTER = "FROM_FILTER";
 const TO_FILTER = "TO_FILTER";
+const SORT_BY = "SORT_BY";
 
 const getMarketInfo = (data) => ({
   type: GET_MARKET_INFO,
@@ -19,6 +20,13 @@ export const toFilter = (selectedValue) => {
   return {
     type: TO_FILTER,
     selectedValue,
+  };
+};
+
+export const sortBy = (sortValue) => {
+  return {
+    type: SORT_BY,
+    sortValue,
   };
 };
 
@@ -44,7 +52,20 @@ const initialState = {
   fromFilter: "all",
   toFilter: "all",
   filteredInfo: [],
+  sortBy: "none",
 };
+
+function sortByFunction(sortValue, data) {
+  if (sortValue === "from") {
+    return data.sort((a, b) =>
+      a.from.toLowerCase() > b.from.toLowerCase() ? 1 : -1
+    );
+  } else {
+    return data.sort((a, b) =>
+      a.to.toLowerCase() > b.to.toLowerCase() ? 1 : -1
+    );
+  }
+}
 
 //reducer
 export default function marketInfoReducer(state = initialState, action) {
@@ -66,6 +87,11 @@ export default function marketInfoReducer(state = initialState, action) {
       action.data.map((item) => {
         toOptionsData.add(item.to);
       });
+
+      if (state.sortBy !== "none") {
+        filteredData = sortByFunction(state.sortBy, filteredData);
+      }
+
       return {
         ...state,
         info: action.data,
@@ -80,7 +106,6 @@ export default function marketInfoReducer(state = initialState, action) {
         if (state.toFilter !== "all") {
           newInfo = oldInfo.filter((item) => item.to === state.toFilter);
         } else {
-          console.log("to is ALL");
           newInfo = state.info;
         }
       } else if (state.toFilter !== "all") {
@@ -90,6 +115,13 @@ export default function marketInfoReducer(state = initialState, action) {
         );
       } else {
         newInfo = oldInfo.filter((item) => item.from === action.selectedValue);
+      }
+
+      //check if a sort value is selected; return data accordingly
+      console.log("BEFORE---------->in sort by inside from filter");
+      if (state.sortBy !== "none") {
+        console.log("IN---------->in sort by inside from filter");
+        newInfo = sortByFunction(state.sortBy, newInfo);
       }
       return {
         ...state,
@@ -105,7 +137,6 @@ export default function marketInfoReducer(state = initialState, action) {
             (item) => item.from === state.fromFilter
           );
         } else {
-          console.log("to is ALL");
           newStateInfo = state.info;
         }
       } else if (state.fromFilter !== "all") {
@@ -118,10 +149,23 @@ export default function marketInfoReducer(state = initialState, action) {
           (item) => item.to === action.selectedValue
         );
       }
+
+      if (state.sortBy !== "none") {
+        newStateInfo = sortByFunction(state.sortBy, newStateInfo);
+      }
       return {
         ...state,
         toFilter: action.selectedValue,
         filteredInfo: newStateInfo,
+      };
+    case SORT_BY:
+      let oldData = state.filteredInfo;
+      let newData = [];
+      newData = sortByFunction(action.sortValue, oldData);
+      return {
+        ...state,
+        sortBy: action.sortValue,
+        filteredInfo: [...newData],
       };
     default:
       return state;

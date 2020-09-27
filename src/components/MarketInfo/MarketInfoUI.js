@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Filter from "./Filter";
+import Sort from "./Sort";
 import "./index.scss";
 
 class MarketInfoUI extends Component {
@@ -21,10 +22,13 @@ class MarketInfoUI extends Component {
 
   render() {
     const { info } = this.props;
-    console.log("this.state", this.state.data);
+    // console.log("this.state", this.state.data);
     return (
       <div>
-        <Filter />
+        <div className="filter-sort">
+          <Filter />
+          <Sort />
+        </div>
         {info.length ? (
           <div className="info-table">
             <table>
