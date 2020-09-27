@@ -1,15 +1,23 @@
 import React from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
+import { fromFilter } from "../../redux/MarketInfo";
 
 function Filter(props) {
   const { info } = props;
+
+  const handleFromChange = (e) => {
+    props.fromFilter(e.target.value);
+  };
+
   return (
     <div>
       {info && info.length && (
         <div>
           <label>From</label>
-          <select>
-            <option selected>All</option>
+          <select onChange={handleFromChange}>
+            <option selected value="all">
+              All
+            </option>
             {info.map((item) => (
               <option value={item.from}>{item.from}</option>
             ))}
@@ -31,4 +39,10 @@ function Filter(props) {
 //   info: state.marketInfo.info,
 // });
 
-export default Filter;
+const mapDispatchToProps = (dispatch) => ({
+  fromFilter: (fromSelectedValue) => {
+    dispatch(fromFilter(fromSelectedValue));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Filter);
