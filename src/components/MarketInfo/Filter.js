@@ -41,8 +41,6 @@ function Filter(props) {
           </select>
         </div>
       </div>
-      {/* {info && info.length && (
-      )} */}
     </div>
   );
 }

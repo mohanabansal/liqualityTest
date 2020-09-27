@@ -24,37 +24,43 @@ class MarketInfoUI extends Component {
     console.log("this.state", this.state.data);
     return (
       <div>
-        <Filter info={info} />
-        <div className="info-table">
-          <table>
-            <tbody>
-              <tr>
-                <th>From</th>
-                <th>To</th>
-                <th>Rate</th>
-                <th>Order Expires In</th>
-                <th>Status</th>
-                <th>Max</th>
-                <th>Min</th>
-                <th>Min Conf</th>
-              </tr>
-              {info.map((item, idx) => {
-                return (
-                  <tr key={idx}>
-                    <td>{item.from}</td>
-                    <td>{item.to}</td>
-                    <td>{item.rate}</td>
-                    <td>{item.orderExpiresIn}</td>
-                    <td className={item.status.toLowerCase()}>{item.status}</td>
-                    <td>{item.max}</td>
-                    <td>{item.min}</td>
-                    <td>{item.minConf}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <Filter />
+        {info.length ? (
+          <div className="info-table">
+            <table>
+              <tbody>
+                <tr>
+                  <th>From</th>
+                  <th>To</th>
+                  <th>Rate</th>
+                  <th>Order Expires In</th>
+                  <th>Status</th>
+                  <th>Max</th>
+                  <th>Min</th>
+                  <th>Min Conf</th>
+                </tr>
+                {info.map((item, idx) => {
+                  return (
+                    <tr key={idx}>
+                      <td>{item.from}</td>
+                      <td>{item.to}</td>
+                      <td>{item.rate}</td>
+                      <td>{item.orderExpiresIn}</td>
+                      <td className={item.status.toLowerCase()}>
+                        {item.status}
+                      </td>
+                      <td>{item.max}</td>
+                      <td>{item.min}</td>
+                      <td>{item.minConf}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <h2>No data for selected value</h2>
+        )}
       </div>
     );
   }

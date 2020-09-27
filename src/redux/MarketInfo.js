@@ -51,7 +51,7 @@ export default function marketInfoReducer(state = initialState, action) {
   switch (action.type) {
     case GET_MARKET_INFO:
       let filteredData = [];
-      if (state.filteredInfo.length) {
+      if (state.fromFilter !== "all" || state.toFilter !== "all") {
         filteredData = state.filteredInfo;
       } else {
         filteredData = action.data;
