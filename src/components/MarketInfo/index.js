@@ -60,6 +60,7 @@ class MarketInfo extends Component {
   };
 
   render() {
+    console.log("info", this.props.info);
     return (
       <div className="info">
         <div className="timer-section">
