@@ -92,10 +92,11 @@ select {
 
 .filter, .sort {
   display: flex;
-  background-color: #F6B3A2;
+  background-color: #df7153;
+  background: linear-gradient(90deg, #8a3219 0%, #ac3e20 35%, #e37f64 100%);
   padding: 20px;
   border-radius: 10px;
-  color: #1d3557;
+  color: white;
   font-weight: bold;
 
 }
@@ -104,12 +105,6 @@ select {
   display: flex;
   margin-bottom: 20px;
   justify-content: space-between;
-  // background-color: #6d9de0;
-  // padding: 20px;
-  // border-radius: 10px;
-  // color: white;
-  // font-style: italic;
-  // justify-content: center;
 }
 
 .filter-header {
