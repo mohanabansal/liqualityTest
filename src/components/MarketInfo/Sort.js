@@ -8,7 +8,7 @@ function Sort(props) {
   };
 
   return (
-    <div>
+    <div className="sort">
       <label>Sort by:</label>
       <select onChange={handleSort}>
         <option selected disabled>

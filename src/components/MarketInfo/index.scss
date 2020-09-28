@@ -90,6 +90,32 @@ select {
   }
 }
 
+.filter, .sort {
+  display: flex;
+  background-color: #F6B3A2;
+  padding: 20px;
+  border-radius: 10px;
+  color: #1d3557;
+  font-weight: bold;
+
+}
+
 .filter-sort {
   display: flex;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  // background-color: #6d9de0;
+  // padding: 20px;
+  // border-radius: 10px;
+  // color: white;
+  // font-style: italic;
+  // justify-content: center;
+}
+
+.filter-header {
+  margin-right: 10px;
+}
+
+select {
+  margin-right: 10px;
 }

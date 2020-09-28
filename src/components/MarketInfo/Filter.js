@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fromFilter, toFilter } from "../../redux/MarketInfo";
+import "./index.scss";
 
 function Filter(props) {
   const { fromOptions, toOptions } = props;
@@ -15,9 +16,10 @@ function Filter(props) {
 
   return (
     <div>
-      <div>
+      <div className="filter">
+        <label className="filter-header">Filter by: </label>
         <div>
-          <label>From</label>
+          <label> From</label>
           <select onChange={handleFromChange}>
             <option selected value="all">
               All
