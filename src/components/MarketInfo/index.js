@@ -87,7 +87,7 @@ class MarketInfo extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  info: state.marketInfo.info,
+  info: state.marketInfo.filteredInfo,
   freq: state.marketInfo.freq,
 });
 
