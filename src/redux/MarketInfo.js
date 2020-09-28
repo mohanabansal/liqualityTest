@@ -80,13 +80,10 @@ export default function marketInfoReducer(state = initialState, action) {
 
       // fetching distinct values from the "from" table cloumn
       let fromOptionsData = new Set();
-      action.data.map((item) => {
-        fromOptionsData.add(item.from);
-      });
+      action.data.map((item) => fromOptionsData.add(item.from));
+
       let toOptionsData = new Set();
-      action.data.map((item) => {
-        toOptionsData.add(item.to);
-      });
+      action.data.map((item) => toOptionsData.add(item.to));
 
       if (state.sortBy !== "none") {
         filteredData = sortByFunction(state.sortBy, filteredData);
